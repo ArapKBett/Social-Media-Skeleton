@@ -14,3 +14,16 @@ CREATE TABLE posts (
     content TEXT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
+
+ALTER TABLE users ADD COLUMN email VARCHAR(255) NOT NULL;
+ALTER TABLE users ADD COLUMN profile_picture VARCHAR(255);
+ALTER TABLE users ADD COLUMN bio TEXT;
+
+CREATE TABLE friend_requests (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    sender_id INT NOT NULL,
+    receiver_id INT NOT NULL,
+    status ENUM('pending', 'accepted', 'rejected') DEFAULT 'pending',
+    FOREIGN KEY (sender_id) REFERENCES users(id),
+    FOREIGN KEY (receiver_id) REFERENCES users(id)
+);
